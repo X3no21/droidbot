@@ -60,10 +60,10 @@ class DeviceState(object):
         return views
 
     def __assemble_view_tree(self, root_view, views):
-        if not len(self.view_tree): # bootstrap
-            self.view_tree = copy.deepcopy(views[0])
-            self.__assemble_view_tree(self.view_tree, views)
-        else:
+        if not len(self.view_tree) and len(views): # bootstrap
+               self.view_tree = copy.deepcopy(views[0])
+               self.__assemble_view_tree(self.view_tree, views)
+        elif "children" in root_view:
             children = list(enumerate(root_view["children"]))
             if not len(children):
                 return
