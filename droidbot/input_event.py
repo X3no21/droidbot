@@ -13,6 +13,13 @@ POSSIBLE_KEYS = [
     "HOME"
 ]
 
+AVAILABLE_COORDINATES = {
+    "level_0": [261, 1171],
+    "level_1": [563, 1171],
+    "level_2": [874, 1171],
+    "level_3": [1184, 1171]
+}
+
 # Unused currently, but should be useful.
 POSSIBLE_BROADCASTS = [
     "android.intent.action.AIRPLANE_MODE_CHANGED",
@@ -72,6 +79,9 @@ POSSIBLE_BROADCASTS = [
 KEY_KeyEvent = "key"
 KEY_ManualEvent = "manual"
 KEY_ExitEvent = "exit"
+KEY_BackEvent = "back"
+KEY_HomeEvent = "home"
+KEY_MenuEvent = "menu"
 KEY_TouchEvent = "touch"
 KEY_LongTouchEvent = "long_touch"
 KEY_SwipeEvent = "swipe"
@@ -128,6 +138,8 @@ class InputEvent(object):
         if event_type == KEY_KeyEvent:
             return KeyEvent(event_dict=event_dict)
         elif event_type == KEY_TouchEvent:
+            if "privacy_level" in event_dict and event_dict["privacy_level"] in AVAILABLE_COORDINATES:
+                return TouchEvent(event_dict=event_dict, x=AVAILABLE_COORDINATES[event_dict["privacy_level"]][0], y=AVAILABLE_COORDINATES[event_dict["privacy_level"]][1])
             return TouchEvent(event_dict=event_dict)
         elif event_type == KEY_LongTouchEvent:
             return LongTouchEvent(event_dict=event_dict)
@@ -141,6 +153,12 @@ class InputEvent(object):
             return IntentEvent(event_dict=event_dict)
         elif event_type == KEY_ExitEvent:
             return ExitEvent(event_dict=event_dict)
+        elif event_type == KEY_BackEvent:
+            return KeyEvent(event_dict=event_dict, name="BACK")
+        elif event_type == KEY_HomeEvent:
+            return KeyEvent(event_dict=event_dict, name="HOME")
+        elif event_type == KEY_MenuEvent:
+            return KeyEvent(event_dict=event_dict, name="MENU")
         elif event_type == KEY_SpawnEvent:
             return SpawnEvent(event_dict=event_dict)
 
