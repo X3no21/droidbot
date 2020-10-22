@@ -14,10 +14,10 @@ POSSIBLE_KEYS = [
 ]
 
 AVAILABLE_COORDINATES = {
-    "level_0": [261, 1171],
-    "level_1": [563, 1171],
-    "level_2": [874, 1171],
-    "level_3": [1184, 1171]
+    "level_0": [412, 1171],
+    "level_1": [718, 1171],
+    "level_2": [1029, 1171],
+    "level_3": [1204, 1171]
 }
 
 # Unused currently, but should be useful.
